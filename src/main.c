@@ -39,6 +39,11 @@ int main(int argc, char **argv) {
     /* dimension() function is defined in feature.h and implemented in feature.c */
     dimension( configuration.filenames[0] );
   }
+
+  if ( strncmp( configuration.command, "second_line", 11 ) == 0 ) {
+    /* dimension() function is defined in feature.h and implemented in feature.c */
+    second_line( configuration.filenames[0] );
+  }
   
   return 0;
 }
