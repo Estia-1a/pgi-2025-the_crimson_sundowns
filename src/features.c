@@ -52,7 +52,4 @@ void tenth_pixel (char *source_path) {
 
     printf("tenth_pixel : %d, %d, %d\n" , R, G, B);
 
-    
 }
-
-
