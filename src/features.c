@@ -69,3 +69,40 @@ void tenth_pixel (char *source_path) {
     printf("tenth_pixel : %d, %d, %d\n" , R, G, B);
 
 }
+
+void max_pixel(char *source_path) {
+
+    int width, height, channel_count;
+    unsigned char *pixelArray;
+    int x, y;
+    int max = 0;
+    int xmax, ymax;
+    pixelRGB pixelMax;
+
+    int result = read_image_data(source_path, &pixelArray, &width, &height, &channel_count);
+
+    if (result == 0) {
+
+        fprintf(stderr, "L'image n'a pas pu etre lue\n");
+        return;
+        
+    } else {
+
+        for (y = 0; y < height; y++) {
+            for (x = 0; x < width; x++) {
+                pixelRGB* pixelActuel = get_pixel(pixelArray, width, height, channel_count, x, y);
+                int somme = pixelActuel->R + pixelActuel->G + pixelActuel->B;
+                if (somme > max) {
+                    max = somme;
+                    xmax = x;
+                    ymax = y;
+                    pixelMax = *pixelActuel;
+                }
+            }
+        }
+    }
+
+    printf("max_pixel(%d, %d): %d, %d, %d\n", xmax, ymax, pixelMax.R, pixelMax.G, pixelMax.B);
+    free(pixelArray);
+
+}

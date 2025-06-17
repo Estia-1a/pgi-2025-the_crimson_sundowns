@@ -28,29 +28,30 @@ int main(int argc, char **argv) {
    * If helloworld is a called command: freud.exe -f images/input/image.jpeg -c helloworld 
    */
 
-  if ( strncmp( configuration.command, "helloworld", 10 ) == 0 ) {
-    /* helloworld() function is defined in feature.h and implemented in feature.c */
+  if (strncmp(configuration.command, "helloworld", 10 ) == 0) {
     helloWorld();
   }
 
-  if ( strncmp( configuration.command, "dimension", 9 ) == 0 ) {
-    /* dimension() function is defined in feature.h and implemented in feature.c */
-    dimension( configuration.filenames[0] );
+  if (strncmp(configuration.command, "dimension", 9) == 0) {
+    dimension(configuration.filenames[0]);
   }
   
-  if ( strncmp( configuration.command, "tenth_pixel", 11 ) == 0 ) {
-    tenth_pixel( configuration.filenames[0] );
+  if (strncmp(configuration.command, "tenth_pixel", 11) == 0) {
+    tenth_pixel(configuration.filenames[0]);
   }  
 
-  if ( strncmp( configuration.command, "second_line", 11 ) == 0 ) {
-    /* dimension() function is defined in feature.h and implemented in feature.c */
-    second_line( configuration.filenames[0] );
+  if (strncmp(configuration.command, "second_line", 11) == 0) {
+    second_line(configuration.filenames[0]);
   }
   
-  if ( strncmp( configuration.command, "print_pixel", 11 ) == 0 ) {
+  if (strncmp(configuration.command, "print_pixel", 11) == 0) {
       int x = atoi(configuration.arguments[0]);
       int y = atoi(configuration.arguments[1]);
       print_pixel(configuration.filenames[0], x, y);
+  }
+
+  if (strncmp(configuration.command, "max_pixel", 9) == 0) {
+    max_pixel(configuration.filenames[0]);
   }
 
   return 0;
