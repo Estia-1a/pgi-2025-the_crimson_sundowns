@@ -68,6 +68,11 @@ int main(int argc, char **argv) {
     min_component(configuration.filenames[0], component); 
   }
 
+  if (strncmp(configuration.command, "min_pixel", 9) == 0) {
+    min_pixel(configuration.filenames[0]);
+  }
+
   return 0;
+
   
 }

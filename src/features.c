@@ -261,3 +261,40 @@ void min_component(char *source_path, char component) {
     }
  
 }
+
+void min_pixel(char *source_path) {
+    int width, height, channel_count;
+    unsigned char *pixelArray;
+    int x, y;
+    int min = 255;
+    int xmin = 0, ymin = 0;
+    pixelRGB pixelMin;
+
+    int result = read_image_data(source_path, &pixelArray, &width, &height, &channel_count);
+
+    if (result == 0) {
+
+        fprintf(stderr, "L'image n'a pas pu être lue\n");
+        return;
+
+    } else {
+        
+        for (y = 0; y < height; y++) {
+            for (x = 0; x < width; x++) {
+                pixelRGB *pixelActuel = get_pixel(pixelArray, width, height, channel_count, x, y);
+                int somme = pixelActuel->R + pixelActuel->G + pixelActuel->B;
+
+                if (somme < min) {
+                    min = somme;
+                    xmin = x;
+                    ymin = y;
+                    pixelMin = *pixelActuel;
+                }
+            }
+        }
+    }
+
+    printf("min_pixel (%d, %d): %d, %d, %d\n", xmin, ymin, pixelMin.R, pixelMin.G, pixelMin.B);
+    free(pixelArray);
+    
+}
