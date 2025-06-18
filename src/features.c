@@ -543,7 +543,7 @@ void stat_report(char *source_path) {
 
 }
 
-void color_red (char *source_path){
+void color_red (char *source_path) {
 
     int width = 0, height = 0, channels;
     unsigned char *pixelArray;
@@ -553,15 +553,12 @@ void color_red (char *source_path){
     if (!result) {
         fprintf(stderr, "L'image n'a pas pu etre lue\n");
         return;
-
     }
 
     for (int i=0 ; i< width*height*3 ; i +=3) {
-
         pixelArray[i+1] = 0;
         pixelArray[i+2] = 0;
     }
-
 
      if (!write_image_data("image_out_red.bmp", pixelArray, width, height)) {
         printf("Erreur : impossible d'écrire l'image\n");
@@ -583,11 +580,9 @@ void color_green (char *source_path) {
     if (!result) {
         fprintf(stderr, "L'image n'a pas pu etre lue\n");
         return;
-
     }
 
     for (int i=0 ; i< width*height*3 ; i +=3) {
-
         pixelArray[i] = 0;
         pixelArray[i+2] = 0;
     }
@@ -611,11 +606,9 @@ void color_blue (char *source_path) {
     if (!result) {
         fprintf(stderr, "L'image n'a pas pu etre lue\n");
         return;
-
     }
 
     for (int i=0 ; i< width*height*3 ; i +=3) {
-
         pixelArray[i] = 0;
         pixelArray[i+1] = 0;
     }
@@ -628,4 +621,4 @@ void color_blue (char *source_path) {
         printf("Image transformee enregistree dans image_out_blue.bmp\n");
     }
 
-    }
+}
