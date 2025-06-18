@@ -31,21 +31,6 @@ void dimension(char *source_path) {
     }    
 }
 
-void second_line(char *source_path) {
-
-    int width, height, channels;
-    unsigned char *pixelArray;
-
-    int result = read_image_data(source_path, &pixelArray, &width, &height, &channels);
-
-    if (result) {
-        printf("second_line: %d, %d, %d\n", pixelArray[3 * width], pixelArray[3 * width + 1], pixelArray[3 * width + 2]);
-        free(pixelArray);
-    } else {
-        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", source_path);
-    }
-}
-
 void tenth_pixel (char *source_path) {
 
     int width, height, channel_count;
@@ -66,8 +51,23 @@ void tenth_pixel (char *source_path) {
     int B = pixelArray[base_index + 2];
 
 
-    printf("tenth_pixel : %d, %d, %d\n" , R, G, B);
+    printf("tenth_pixel: %d, %d, %d\n" , R, G, B);
 
+}
+
+void second_line(char *source_path) {
+
+    int width, height, channels;
+    unsigned char *pixelArray;
+
+    int result = read_image_data(source_path, &pixelArray, &width, &height, &channels);
+
+    if (result) {
+        printf("second_line: %d, %d, %d\n", pixelArray[3 * width], pixelArray[3 * width + 1], pixelArray[3 * width + 2]);
+        free(pixelArray);
+    } else {
+        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", source_path);
+    }
 }
 
 void max_pixel(char *source_path) {
@@ -100,9 +100,10 @@ void max_pixel(char *source_path) {
                 }
             }
         }
+        
     }
 
-    printf("max_pixel(%d, %d): %d, %d, %d\n", xmax, ymax, pixelMax.R, pixelMax.G, pixelMax.B);
+    printf("max_pixel (%d, %d): %d, %d, %d\n", xmax, ymax, pixelMax.R, pixelMax.G, pixelMax.B);
     free(pixelArray);
 
 }
