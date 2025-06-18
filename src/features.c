@@ -571,9 +571,6 @@ void color_red (char *source_path){
     else {
         printf("Image transformee enregistree dans image_out_red.bmp\n");
     }
-
-
-
     
 }
 
