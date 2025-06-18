@@ -227,7 +227,7 @@ void max_component(char *source_path, char component) {
             return;
         }
  
-        printf("max_component %c (%d, %d): %d", component, xmax, ymax, componentMax);
+        printf("max_component %c (%d, %d): %d\n", component, xmax, ymax, componentMax);
  
     }
  
@@ -294,7 +294,7 @@ void min_component(char *source_path, char component) {
             return;
         }
  
-        printf("min_component %c (%d, %d): %d", component, xmin, ymin, componentMin);
+        printf("min_component %c (%d, %d): %d\n", component, xmin, ymin, componentMin);
  
     }
  
@@ -437,7 +437,7 @@ void max_component_file(char *source_path, char component, FILE *fichier) {
             return;
         }
  
-        fprintf(fichier, "max_component %c (%d, %d): %d", component, xmax, ymax, componentMax);
+        fprintf(fichier, "max_component %c (%d, %d): %d\n", component, xmax, ymax, componentMax);
  
     }
  
@@ -504,7 +504,7 @@ void min_component_file(char *source_path, char component, FILE *fichier) {
             return;
         }
  
-        fprintf(fichier, "min_component %c (%d, %d): %d", component, xmin, ymin, componentMin);
+        fprintf(fichier, "min_component %c (%d, %d): %d\n", component, xmin, ymin, componentMin);
  
     }
  
@@ -519,15 +519,22 @@ void stat_report(char *source_path) {
     } else {
 
         max_pixel_file(source_path, fichier);
+        fprintf(fichier, "\n");
 
         min_pixel_file(source_path, fichier);
+        fprintf(fichier, "\n");
 
         max_component_file(source_path, 'R', fichier);
+        fprintf(fichier, "\n");
         max_component_file(source_path, 'G', fichier);
+        fprintf(fichier, "\n");
         max_component_file(source_path, 'B', fichier);
+        fprintf(fichier, "\n");
 
         min_component_file(source_path, 'R', fichier);
+        fprintf(fichier, "\n");
         min_component_file(source_path, 'G', fichier);
+        fprintf(fichier, "\n");
         min_component_file(source_path, 'B', fichier);
 
         fclose(fichier);
