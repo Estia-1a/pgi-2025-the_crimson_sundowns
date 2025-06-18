@@ -543,7 +543,6 @@ void stat_report(char *source_path) {
 
 }
 
-
 void color_red (char *source_path){
 
     int width = 0, height = 0, channels;
