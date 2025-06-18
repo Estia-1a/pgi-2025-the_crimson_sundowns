@@ -26,22 +26,27 @@ void dimension(char *source_path) {
     if (result) {
         printf("dimension: %d, %d\n", width, height);
         free(pixelArray);
-    } else {
+    } 
+    else {
         fprintf(stderr, "Erreur : impossible de lire l'image %s\n", source_path);
     }    
 }
 
-void second_line(char *source_path) {
-
+void first_pixel (char *source_path){
     int width, height, channels;
-    unsigned char *pixelArray;
+    unsigned char *pixelArray = NULL;
 
     int result = read_image_data(source_path, &pixelArray, &width, &height, &channels);
-
-    if (result) {
-        printf("second_line: %d, %d, %d\n", pixelArray[3 * width], pixelArray[3 * width + 1], pixelArray[3 * width + 2]);
+    if (result == 1) {
+        if (channels == 3) {
+            int R = pixelArray[0];
+            int G = pixelArray[1];
+            int B = pixelArray[2];
+            printf("first_pixel: %d, %d, %d\n", R, G, B);
+        }
         free(pixelArray);
-    } else {
+    }
+    else {
         fprintf(stderr, "Erreur : impossible de lire l'image %s\n", source_path);
     }
 }
@@ -66,8 +71,23 @@ void tenth_pixel (char *source_path) {
     int B = pixelArray[base_index + 2];
 
 
-    printf("tenth_pixel : %d, %d, %d\n" , R, G, B);
+    printf("tenth_pixel: %d, %d, %d\n" , R, G, B);
 
+}
+
+void second_line(char *source_path) {
+
+    int width, height, channels;
+    unsigned char *pixelArray;
+
+    int result = read_image_data(source_path, &pixelArray, &width, &height, &channels);
+
+    if (result) {
+        printf("second_line: %d, %d, %d\n", pixelArray[3 * width], pixelArray[3 * width + 1], pixelArray[3 * width + 2]);
+        free(pixelArray);
+    } else {
+        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", source_path);
+    }
 }
 
 void max_pixel(char *source_path) {
@@ -100,9 +120,10 @@ void max_pixel(char *source_path) {
                 }
             }
         }
+        
     }
 
-    printf("max_pixel(%d, %d): %d, %d, %d\n", xmax, ymax, pixelMax.R, pixelMax.G, pixelMax.B);
+    printf("max_pixel (%d, %d): %d, %d, %d\n", xmax, ymax, pixelMax.R, pixelMax.G, pixelMax.B);
     free(pixelArray);
 
 }
@@ -142,4 +163,138 @@ void min_pixel(char *source_path) {
     printf("min_pixel (%d, %d): %d, %d, %d\n", xmin, ymin, pixelMin.R, pixelMin.G, pixelMin.B);
     free(pixelArray);
     
+}
+
+void max_component(char *source_path, char component) {
+ 
+    int width, height, channel_count;
+    unsigned char *pixelArray;
+    int x, y;
+    int componentMax = 0;
+    int xmax, ymax;
+ 
+    int result = read_image_data(source_path, &pixelArray, &width, &height, &channel_count);
+ 
+    if (result == 0) {
+ 
+        fprintf(stderr, "L'image n'a pas pu etre lue\n");
+        return;
+       
+    } else {
+ 
+        if (component == 'R') {
+            for (y = 0; y < height; y++) {
+                for (x = 0; x < width; x++) {
+                    pixelRGB* pixelActuel = get_pixel(pixelArray, width, height, channel_count, x, y);
+                    if (pixelActuel->R > componentMax) {
+                        componentMax = pixelActuel->R;
+                        xmax = x;
+                        ymax = y;
+                    }
+                }
+            }
+        }
+ 
+        else if (component == 'G') {
+            for (y = 0; y < height; y++) {
+                for (x = 0; x < width; x++) {
+                    pixelRGB* pixelActuel = get_pixel(pixelArray, width, height, channel_count, x, y);
+                    if (pixelActuel->G > componentMax) {
+                        componentMax = pixelActuel->G;
+                        xmax = x;
+                        ymax = y;
+                    }
+                }
+            }
+        }
+ 
+        else if (component == 'B') {
+            for (y = 0; y < height; y++) {
+                for (x = 0; x < width; x++) {
+                    pixelRGB* pixelActuel = get_pixel(pixelArray, width, height, channel_count, x, y);
+                    if (pixelActuel->B > componentMax) {
+                        componentMax = pixelActuel->B;
+                        xmax = x;
+                        ymax = y;
+                    }
+                }
+            }            
+        }
+ 
+        else {
+            fprintf(stderr, "Composant inconnu : %c\n", component);
+            return;
+        }
+ 
+        printf("max_component %c (%d, %d): %d", component, xmax, ymax, componentMax);
+ 
+    }
+ 
+}
+
+void min_component(char *source_path, char component) {
+ 
+    int width, height, channel_count;
+    unsigned char *pixelArray;
+    int x, y;
+    int componentMin = 255;
+    int xmin, ymin;
+ 
+    int result = read_image_data(source_path, &pixelArray, &width, &height, &channel_count);
+ 
+    if (result == 0) {
+ 
+        fprintf(stderr, "L'image n'a pas pu etre lue\n");
+        return;
+       
+    } else {
+ 
+        if (component == 'R') {
+            for (y = 0; y < height; y++) {
+                for (x = 0; x < width; x++) {
+                    pixelRGB* pixelActuel = get_pixel(pixelArray, width, height, channel_count, x, y);
+                    if (pixelActuel->R < componentMin) {
+                        componentMin = pixelActuel->R;
+                        xmin = x;
+                        ymin = y;
+                    }
+                }
+            }
+        }
+ 
+        else if (component == 'G') {
+            for (y = 0; y < height; y++) {
+                for (x = 0; x < width; x++) {
+                    pixelRGB* pixelActuel = get_pixel(pixelArray, width, height, channel_count, x, y);
+                    if (pixelActuel->G < componentMin) {
+                        componentMin = pixelActuel->G;
+                        xmin = x;
+                        ymin = y;
+                    }
+                }
+            }
+        }
+ 
+        else if (component == 'B') {
+            for (y = 0; y < height; y++) {
+                for (x = 0; x < width; x++) {
+                    pixelRGB* pixelActuel = get_pixel(pixelArray, width, height, channel_count, x, y);
+                    if (pixelActuel->B < componentMin) {
+                        componentMin = pixelActuel->B;
+                        xmin = x;
+                        ymin = y;
+                    }
+                }
+            }            
+        }
+ 
+        else {
+            fprintf(stderr, "Composant inconnu : %c\n", component);
+            return;
+        }
+ 
+        printf("min_component %c (%d, %d): %d", component, xmin, ymin, componentMin);
+ 
+    }
+ 
 }
