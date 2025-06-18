@@ -194,3 +194,70 @@ void max_component(char *source_path, char component) {
     }
  
 }
+
+void min_component(char *source_path, char component) {
+ 
+    int width, height, channel_count;
+    unsigned char *pixelArray;
+    int x, y;
+    int componentMin = 255;
+    int xmin, ymin;
+ 
+    int result = read_image_data(source_path, &pixelArray, &width, &height, &channel_count);
+ 
+    if (result == 0) {
+ 
+        fprintf(stderr, "L'image n'a pas pu etre lue\n");
+        return;
+       
+    } else {
+ 
+        if (component == 'R') {
+            for (y = 0; y < height; y++) {
+                for (x = 0; x < width; x++) {
+                    pixelRGB* pixelActuel = get_pixel(pixelArray, width, height, channel_count, x, y);
+                    if (pixelActuel->R < componentMin) {
+                        componentMin = pixelActuel->R;
+                        xmin = x;
+                        ymin = y;
+                    }
+                }
+            }
+        }
+ 
+        else if (component == 'G') {
+            for (y = 0; y < height; y++) {
+                for (x = 0; x < width; x++) {
+                    pixelRGB* pixelActuel = get_pixel(pixelArray, width, height, channel_count, x, y);
+                    if (pixelActuel->G < componentMin) {
+                        componentMin = pixelActuel->G;
+                        xmin = x;
+                        ymin = y;
+                    }
+                }
+            }
+        }
+ 
+        else if (component == 'B') {
+            for (y = 0; y < height; y++) {
+                for (x = 0; x < width; x++) {
+                    pixelRGB* pixelActuel = get_pixel(pixelArray, width, height, channel_count, x, y);
+                    if (pixelActuel->B < componentMin) {
+                        componentMin = pixelActuel->B;
+                        xmin = x;
+                        ymin = y;
+                    }
+                }
+            }            
+        }
+ 
+        else {
+            fprintf(stderr, "Composant inconnu : %c\n", component);
+            return;
+        }
+ 
+        printf("min_component %c (%d, %d): %d", component, xmin, ymin, componentMin);
+ 
+    }
+ 
+}
