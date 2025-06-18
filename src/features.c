@@ -130,3 +130,70 @@ void max_pixel(char *source_path) {
     free(pixelArray);
 
 }
+
+void max_component(char *source_path, char component) {
+ 
+    int width, height, channel_count;
+    unsigned char *pixelArray;
+    int x, y;
+    int componentMax = 0;
+    int xmax, ymax;
+ 
+    int result = read_image_data(source_path, &pixelArray, &width, &height, &channel_count);
+ 
+    if (result == 0) {
+ 
+        fprintf(stderr, "L'image n'a pas pu etre lue\n");
+        return;
+       
+    } else {
+ 
+        if (component == 'R') {
+            for (y = 0; y < height; y++) {
+                for (x = 0; x < width; x++) {
+                    pixelRGB* pixelActuel = get_pixel(pixelArray, width, height, channel_count, x, y);
+                    if (pixelActuel->R > componentMax) {
+                        componentMax = pixelActuel->R;
+                        xmax = x;
+                        ymax = y;
+                    }
+                }
+            }
+        }
+ 
+        else if (component == 'G') {
+            for (y = 0; y < height; y++) {
+                for (x = 0; x < width; x++) {
+                    pixelRGB* pixelActuel = get_pixel(pixelArray, width, height, channel_count, x, y);
+                    if (pixelActuel->G > componentMax) {
+                        componentMax = pixelActuel->G;
+                        xmax = x;
+                        ymax = y;
+                    }
+                }
+            }
+        }
+ 
+        else if (component == 'B') {
+            for (y = 0; y < height; y++) {
+                for (x = 0; x < width; x++) {
+                    pixelRGB* pixelActuel = get_pixel(pixelArray, width, height, channel_count, x, y);
+                    if (pixelActuel->B > componentMax) {
+                        componentMax = pixelActuel->B;
+                        xmax = x;
+                        ymax = y;
+                    }
+                }
+            }            
+        }
+ 
+        else {
+            fprintf(stderr, "Composant inconnu : %c\n", component);
+            return;
+        }
+ 
+        printf("max_component %c (%d, %d): %d", component, xmax, ymax, componentMax);
+ 
+    }
+ 
+}
