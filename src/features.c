@@ -628,3 +628,34 @@ void color_blue (char *source_path) {
     }
 
 }
+
+void color_gray (char *source_path) {
+
+    int width = 0, height = 0, channels;
+    unsigned char *pixelArray;
+
+    int result = read_image_data(source_path, &pixelArray, &width, &height, &channels);
+
+    unsigned char value;
+
+    if (!result) {
+        fprintf(stderr, "L'image n'a pas pu etre lue\n");
+        return;
+    }
+
+    for (int i=0 ; i< width * height * 3 ; i += 3) {
+        value = (pixelArray[i] + pixelArray[i+1] + pixelArray[i+2]) / 3;
+        pixelArray[i] = value;
+        pixelArray[i+1] = value;
+        pixelArray[i+2] = value;
+    }
+
+    if (!write_image_data("image_out.bmp", pixelArray, width, height)) {
+        printf("Erreur : impossible d'écrire l'image\n");
+    }
+
+    else {        
+        printf("Image transformee enregistree dans image_out.bmp\n");
+    }
+
+}
