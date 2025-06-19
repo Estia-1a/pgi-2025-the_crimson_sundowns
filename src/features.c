@@ -93,7 +93,7 @@ void second_line(char *source_path) {
     } else {
         fprintf(stderr, "Erreur : impossible de lire l'image %s\n", source_path);
     }
-    
+
 }
 
 void max_pixel(char *source_path) { 
@@ -571,7 +571,7 @@ void color_red (char *source_path) {
     }
 
     else {
-        printf("Image transformee enregistree dans image_out_red.bmp\n");
+        printf("Image transformee enregistree dans image_out.bmp\n");
     }
     
 }
@@ -593,12 +593,12 @@ void color_green (char *source_path) {
         pixelArray[i+2] = 0;
     }
 
-     if (!write_image_data("image_out_green.bmp", pixelArray, width, height)) {
+     if (!write_image_data("image_out.bmp", pixelArray, width, height)) {
         printf("Erreur : impossible d'écrire l'image\n");
     }
 
     else {
-        printf("Image transformee enregistree dans image_out_green.bmp\n");
+        printf("Image transformee enregistree dans image_out.bmp\n");
     }   
 }  
 
@@ -619,12 +619,12 @@ void color_blue (char *source_path) {
         pixelArray[i+1] = 0;
     }
 
-     if (!write_image_data("image_out_blue.bmp", pixelArray, width, height)) {
+     if (!write_image_data("image_out.bmp", pixelArray, width, height)) {
         printf("Erreur : impossible d'écrire l'image\n");
     }
 
     else {
-        printf("Image transformee enregistree dans image_out_blue.bmp\n");
+        printf("Image transformee enregistree dans image_out.bmp\n");
     }
 
 }
