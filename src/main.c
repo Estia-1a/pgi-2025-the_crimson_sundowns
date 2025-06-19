@@ -88,12 +88,20 @@ int main(int argc, char **argv) {
     color_blue(configuration.filenames[0]);
   }
 
+    if (strncmp(configuration.command, "color_invert", 12) == 0) {
+    color_invert(configuration.filenames[0]);
+  }
+
   if (strcmp(configuration.command, "color_gray") == 0) {
     color_gray(configuration.filenames[0]);
   }
 
   if (strcmp(configuration.command, "color_gray_luminance") == 0) {
     color_gray_luminance(configuration.filenames[0]);
+  }
+
+  if (strcmp(configuration.command, "mirror_total") == 0) {
+    mirror_total(configuration.filenames[0]);
   }
 
   if (strcmp(configuration.command, "rotate_cw") == 0) {
@@ -104,6 +112,13 @@ int main(int argc, char **argv) {
     rotate_acw(configuration.filenames[0]);
   }
 
+  if (strncmp(configuration.command, "mirror_horizontal", 17) == 0) {
+    mirror_horizontal(configuration.filenames[0]);
+  }
+
+  if (strncmp(configuration.command, "mirror_total", 12) == 0) {
+    mirror_total(configuration.filenames[0]);
+  }
 
   return 0;
   
