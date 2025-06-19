@@ -31,5 +31,7 @@ void rotate_acw (char *source_path);
 
 void mirror_horizontal (char *source_path);
 
+void mirror_total(char *source_path);
+
 
 #endif
