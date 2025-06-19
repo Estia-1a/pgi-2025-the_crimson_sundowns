@@ -663,21 +663,7 @@ void color_gray_luminance (char *source_path) {
 
 }
 
-void mirror_horizontal (char *source_path) {
-
-    int width, height, channels;
-    unsigned char *pixelArray;
-
-    int result = read_image_data(source_path, &pixelArray, &width, &height, &channels);
-
-    if (!result) {
-        fprintf(stderr, "L'image n'a pas pu etre lue\n");
-        return;
-    }
-
-    }
-
- void color_invert(char *source_path) {
+void color_invert(char *source_path) {
     int width, height, channel_count;
     unsigned char *pixelArray;
 
@@ -713,4 +699,17 @@ void mirror_horizontal (char *source_path) {
     }
  }
 
+void mirror_horizontal (char *source_path) {
+
+    int width, height, channels;
+    unsigned char *pixelArray;
+
+    int result = read_image_data(source_path, &pixelArray, &width, &height, &channels);
+
+    if (!result) {
+        fprintf(stderr, "L'image n'a pas pu etre lue\n");
+        return;
+    }
+
+}
     
