@@ -798,5 +798,31 @@ void mirror_horizontal (char *source_path) {
         return;
     }
 
+    unsigned char *mirroredArray = (unsigned char *)malloc(width * height * channels);
+    if (!mirroredArray) {
+        fprintf(stderr, "Erreur d'allocation mémoire\n");
+        free(pixelArray);
+        return;
+    }
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+
+            int src_index = (y * width + x) * channels;
+            int dest_index = (y * width + (width - 1 - x)) * channels;
+
+            mirroredArray[dest_index] = pixelArray[src_index];
+            mirroredArray[dest_index + 1] = pixelArray[src_index + 1];
+            mirroredArray[dest_index + 2] = pixelArray[src_index + 2];
+        }
+    }
+
+    if (!write_image_data("image_out.bmp", mirroredArray, width, height)) {
+        printf("Erreur : impossible d'écrire l'image\n");
+    } else {
+        printf("Image miroir horizontale enregistrée dans image_out.bmp\n");
+    }
+
+    free(mirroredArray);
+    free(pixelArray);
 }
-    
