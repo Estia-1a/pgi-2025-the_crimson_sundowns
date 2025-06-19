@@ -88,6 +88,10 @@ int main(int argc, char **argv) {
     color_blue(configuration.filenames[0]);
   }
 
+    if (strncmp(configuration.command, "color_invert", 12) == 0) {
+    color_invert(configuration.filenames[0]);
+  }
+
   if (strcmp(configuration.command, "color_gray") == 0) {
     color_gray(configuration.filenames[0]);
   }
