@@ -820,7 +820,7 @@ void mirror_horizontal (char *source_path) {
     if (!write_image_data("image_out.bmp", mirroredArray, width, height)) {
         printf("Erreur : impossible d'écrire l'image\n");
     } else {
-        printf("Image miroir horizontale enregistrée dans image_out.bmp\n");
+        printf("Image miroir horizontale enregistree dans image_out.bmp\n");
     }
 
     free(mirroredArray);
