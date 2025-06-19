@@ -485,8 +485,7 @@ void min_component_file(char *source_path, char component, FILE *fichier) {
 
     fprintf(fichier, "min_component %c (%d, %d): %d\n", component, xmin, ymin, componentMin);
  
-}
- 
+} 
 
 void stat_report(char *source_path) {
 

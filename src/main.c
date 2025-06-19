@@ -115,10 +115,7 @@ int main(int argc, char **argv) {
   if (strncmp(configuration.command, "mirror_horizontal", 17) == 0) {
     mirror_horizontal(configuration.filenames[0]);
   }
-
-  if (strncmp(configuration.command, "color_invert", 12) == 0) {
-    color_invert(configuration.filenames[0]);
-  }
+  
 
   return 0;
   
