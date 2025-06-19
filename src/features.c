@@ -675,4 +675,42 @@ void mirror_horizontal (char *source_path) {
         return;
     }
 
-}
+    }
+
+ void color_invert(char *source_path) {
+    int width, height, channel_count;
+    unsigned char *pixelArray;
+
+
+    int result = read_image_data(source_path, &pixelArray, &width, &height, &channel_count);
+    if (result == 0 || pixelArray == 0) {
+        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", source_path);
+        return;
+    }
+
+    int total_size = width * height * channel_count;
+
+    unsigned char *inverted_pixelArray = (unsigned char *)malloc(total_size);
+    if (inverted_pixelArray == 0) {
+        fprintf(stderr, "Erreur : echec de l'allocation memoire pour l'image inversee\n");
+        
+        return;
+    }
+
+    for (int i = 0; i < total_size; i++) {
+        inverted_pixelArray[i] = 255 - pixelArray[i];
+    }
+
+    if (!write_image_data("image_out.bmp", inverted_pixelArray, width, height)) {
+        fprintf(stderr, "Erreur : impossible d'ecrire l'image de sortie\n");
+        free(inverted_pixelArray);
+        free(pixelArray);
+    
+    } 
+    
+    else {
+        printf("Image transformee a bien ete transforme : image_out.bmp\n");
+    }
+ }
+
+    
