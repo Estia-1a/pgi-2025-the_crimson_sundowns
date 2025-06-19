@@ -778,12 +778,14 @@ void rotate_acw(char *source_path){
 }
 
 
- void color_invert(char *source_path) {
+void color_invert(char *source_path) {
+
     int width, height, channel_count;
     unsigned char *pixelArray;
 
 
     int result = read_image_data(source_path, &pixelArray, &width, &height, &channel_count);
+
     if (result == 0 || pixelArray == 0) {
         fprintf(stderr, "Erreur : impossible de lire l'image %s\n", source_path);
         return;
@@ -806,19 +808,19 @@ void rotate_acw(char *source_path){
         fprintf(stderr, "Erreur : impossible d'ecrire l'image de sortie\n");
         free(inverted_pixelArray);
         free(pixelArray);
-    
+
     } 
-    
+
     else {
         printf("Image transformee a bien ete transforme : image_out.bmp\n");
     }
- }
+}
 
-    void mirror_total(char *source_path) {
+void mirror_total(char *source_path) {
     int width, height, channel_count;
     unsigned char *pixelArray;
 
-    
+
     int result = read_image_data(source_path, &pixelArray, &width, &height, &channel_count);
     if (result == 0 || pixelArray == NULL) {
         fprintf(stderr, "Erreur : impossible de lire l'image %s\n", source_path);
@@ -835,7 +837,7 @@ void rotate_acw(char *source_path){
         return;
     }
 
-    
+
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             
@@ -854,14 +856,14 @@ void rotate_acw(char *source_path){
         }
     }
 
-    
+
     if (!write_image_data("image_out.bmp", mirrored_pixelArray, width, height)) {
         fprintf(stderr, "Erreur : impossible d'écrire l'image de sortie\n");
     } else {
         printf("Image transformée avec succès : image_out.bmp\n");
     }
 
-    
+
     free(pixelArray);
     free(mirrored_pixelArray);
- }
+}
