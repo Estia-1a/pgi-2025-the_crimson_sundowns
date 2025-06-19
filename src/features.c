@@ -727,4 +727,54 @@ void color_gray_luminance (char *source_path) {
     }
  }
 
+    void mirror_total(char *source_path) {
+    int width, height, channel_count;
+    unsigned char *pixelArray;
+
     
+    int result = read_image_data(source_path, &pixelArray, &width, &height, &channel_count);
+    if (result == 0 || pixelArray == NULL) {
+        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", source_path);
+        return;
+    }
+
+    int total_size = width * height * channel_count;
+
+
+    unsigned char *mirrored_pixelArray = (unsigned char *)malloc(total_size);
+    if (mirrored_pixelArray == NULL) {
+        fprintf(stderr, "Erreur : échec de l'allocation mémoire pour l'image miroir\n");
+        free(pixelArray);
+        return;
+    }
+
+    
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            
+            int src_index = (y * width + x) * channel_count;
+
+            // Calculer la position miroir : symétrie horizontale + verticale
+            int mirrored_x = width - 1 - x;
+            int mirrored_y = height - 1 - y;
+
+            int dst_index = (mirrored_y * width + mirrored_x) * channel_count;
+
+            // Copier tous les canaux (R, G, B, éventuellement Alpha)
+            for (int c = 0; c < channel_count; c++) {
+                mirrored_pixelArray[dst_index + c] = pixelArray[src_index + c];
+            }
+        }
+    }
+
+    
+    if (!write_image_data("image_out.bmp", mirrored_pixelArray, width, height)) {
+        fprintf(stderr, "Erreur : impossible d'écrire l'image de sortie\n");
+    } else {
+        printf("Image transformée avec succès : image_out.bmp\n");
+    }
+
+    
+    free(pixelArray);
+    free(mirrored_pixelArray);
+ }
