@@ -24,31 +24,36 @@ void dimension(char *source_path) {
     int result = read_image_data(source_path, &pixelArray, &width, &height, &channels);
 
     if (result) {
+
         printf("dimension: %d, %d\n", width, height);
         free(pixelArray);
+
     } 
     else {
         fprintf(stderr, "Erreur : impossible de lire l'image %s\n", source_path);
-    }    
+    }   
+
 }
 
 void first_pixel (char *source_path){
+
     int width, height, channels;
     unsigned char *pixelArray = NULL;
 
     int result = read_image_data(source_path, &pixelArray, &width, &height, &channels);
-    if (result == 1) {
-        if (channels == 3) {
-            int R = pixelArray[0];
-            int G = pixelArray[1];
-            int B = pixelArray[2];
-            printf("first_pixel: %d, %d, %d\n", R, G, B);
-        }
+
+    if (result) {
+
+        int R = pixelArray[0];
+        int G = pixelArray[1];
+        int B = pixelArray[2];
+        printf("first_pixel: %d, %d, %d\n", R, G, B);
         free(pixelArray);
-    }
-    else {
+
+    } else {
         fprintf(stderr, "Erreur : impossible de lire l'image %s\n", source_path);
-    }
+    }    
+
 }
 
 void tenth_pixel (char *source_path) {
@@ -59,12 +64,12 @@ void tenth_pixel (char *source_path) {
     read_image_data(source_path, &pixelArray, &width, &height, &channel_count);
 
     if (width < 10) {
-    fprintf(stderr, "Error: la taille de l'image est inférieure à 10\n");
-    return;
+        fprintf(stderr, "Error: la taille de l'image est inférieure à 10 pixels\n");
+        return;
     }
 
     int pixel_index = 9; // on definit le numero du pixel qu'on veut utiliser ici 10eme
-    int base_index = pixel_index * channel_count; // calcul l'index de depart dans le tableau data des donnees du pixel
+    int base_index = pixel_index * channel_count; // calcule l'index de depart dans le tableau data des donnees du pixel
 
     int R = pixelArray[base_index]; // R = premiere valeur rouge
     int G = pixelArray[base_index + 1]; 
@@ -88,6 +93,7 @@ void second_line(char *source_path) {
     } else {
         fprintf(stderr, "Erreur : impossible de lire l'image %s\n", source_path);
     }
+    
 }
 
 void max_pixel(char *source_path) { 
